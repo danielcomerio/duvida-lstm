@@ -9,7 +9,7 @@ from sklearn.metrics import confusion_matrix, f1_score, precision_score, recall_
 from typing import Any, List, Tuple, Callable
 from tqdm import tqdm
 
-from settings import (BATCH_SIZE, EPOCHS, LEARNING_RATE, OPTIMIZATION_FUNCTION,
+from settingsFilipe import (BATCH_SIZE, EPOCHS, LEARNING_RATE, OPTIMIZATION_FUNCTION,
                       DATASET_TEXT_PATH, FEATURES_PATH, TRAINED_MODELS_PATH)
 from models import initialize_pretrained_model
 from datasets import rsnaImageDataset_features
@@ -263,27 +263,10 @@ def main():
     for model_name in model_names:
         print(model_name)
         _, input_size, feature_size = initialize_pretrained_model(model_name, num_classes=6)
-        #feature_size = 512 # ajustePteste
         FEATURE_SIZE = feature_size
         
         model = LstmModel(feature_size, num_classes=6)
-        #model_output = lstm_model(input_tensor)
 
-        # train_dataset = rsnaImageDataset_features.generate_dataset(
-        #             DATASET_BASE_PATH.joinpath("train.csv"),
-        #             FEATURES_PATH
-        #             )
-        
-        # val_dataset = rsnaImageDataset_features.generate_dataset(
-        #             DATASET_BASE_PATH.joinpath("val.csv"),
-        #             FEATURES_PATH
-        #             )
-        
-        # test_dataset = rsnaImageDataset_features.generate_dataset(
-        #             DATASET_BASE_PATH.joinpath("test.csv"),
-        #             FEATURES_PATH
-        #             )
-        
         train_dataset = rsnaImageDataset_features.generate_dataset(
                     DATASET_TEXT_PATH.joinpath("train.csv"),
                     FEATURES_PATH.joinpath(model_name)
